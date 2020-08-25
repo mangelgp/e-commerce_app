@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         'detProduct'  : (BuildContext context) => DetProductPage(),
       },
       theme: ThemeData(
-        primaryColor: Colors.indigo
+        primaryColor: Colors.red
       ),
     );
   }

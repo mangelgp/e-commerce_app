@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:oso_app/src/components/cart_counter.dart';
 import 'package:oso_app/src/constants/constants.dart';
-import 'package:oso_app/src/models/products_model.dart';
+import 'package:oso_app/src/models/product_model.dart';
 
 class DetProductPage extends StatelessWidget {
 
@@ -62,54 +62,70 @@ class DetProductPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           SizedBox(height: kDefaultPaddin,),
-          Text(
-            product.descripcion.toLowerCase(),
-            style: TextStyle(color: kTextColor, fontWeight: FontWeight.w500, fontSize: 20.0),
-          ),
-          Text(
-            'ID ${product.codigo.toString()}',
-            style: TextStyle(color: kTextLightColor),
-          ),
+          _productDescription(product),
+          _productID(product),
           SizedBox(height: kDefaultPaddin,),
-
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20.0),
-            clipBehavior: Clip.antiAlias,
-            child: FadeInImage(
-              width: screenSize.width * 0.9,
-              height: screenSize.width * 0.9,
-              fit: BoxFit.cover,
-              placeholder: AssetImage('assets\img\loading.gif'), 
-              image: NetworkImage(product.getImg()),
-            ),
-          ),
-
+          _productImg(screenSize, product),
           SizedBox(height: kDefaultPaddin,),
-
-          Text('\$${product.precio} MXN', style: TextStyle(color: kTextColor, fontSize: 35.0, fontWeight: FontWeight.w500),),
-          Text('IVA Incluido', style: TextStyle(color:  kTextLightColor),),
-
+          _productPrice(product),
           SizedBox(height: kDefaultPaddin * 1.5,),
-
-          RichText(
-            text: TextSpan(
-              children: [
-                TextSpan(text: 'Stock disponible: ', style: textoLight),
-                TextSpan(text: '${product.stock}', style: textoLightColor),
-              ]
-            )
-          ),
-          
-
+          _productStock(product),
           SizedBox(height: kDefaultPaddin/2,),
-
           CartCounter(product: product, stock: product.stock,),
-
           SizedBox(height: kDefaultPaddin * 2,),
-
           _builPayCartButtons(context, product,),
         ],
       ),
+    );
+  }
+
+  Text _productDescription(Product product) {
+    return Text(
+      product.descripcion.toLowerCase(),
+      style: TextStyle(color: kTextColor, fontWeight: FontWeight.w500, fontSize: 20.0),
+    );
+  }
+
+  Text _productID(Product product) {
+    return Text(
+      'ID ${product.id.toString()}',
+      style: TextStyle(color: kTextLightColor),
+    );
+  }
+
+  ClipRRect _productImg(Size screenSize, Product product) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20.0),
+      clipBehavior: Clip.antiAlias,
+      child: FadeInImage(
+        width: screenSize.width * 0.9,
+        height: screenSize.width * 0.9,
+        fit: BoxFit.cover,
+        placeholder: AssetImage('assets\img\loading.gif'), 
+        image: NetworkImage(product.getImg()),
+      ),
+    );
+  }
+
+  RichText _productPrice(Product product) {
+    return RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(text: '\$${product.precio} MXN\n', style: price),
+          TextSpan(text: 'IVA Incluido', style: textoLightColor),
+        ]
+      )
+    );
+  }
+
+  RichText _productStock(Product product) {
+    return RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(text: 'Stock disponible: ', style: textoLight),
+          TextSpan(text: '${product.stock}', style: textoLightColor),
+        ]
+      )
     );
   }
 

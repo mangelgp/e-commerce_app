@@ -37,7 +37,7 @@ class ListAllCategories extends StatelessWidget {
   Widget _catIndividual(BuildContext context, Categoria categoria) {
 
     final tarjeta = ListTile(
-      title: Text(categoria.descripcion, style: TextStyle(color: kTextColor, fontWeight: FontWeight.w400, fontSize: 20.0),),
+      title: Text(categoria.descripcion, style: cardProductText,),
       trailing: Icon(Icons.keyboard_arrow_right, color: Theme.of(context).primaryColor,),
       onTap: () {
         Navigator.pushNamed(context, 'products', arguments: categoria);

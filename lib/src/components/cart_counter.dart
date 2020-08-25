@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:oso_app/src/constants/constants.dart';
-import 'package:oso_app/src/models/products_model.dart';
+import 'package:oso_app/src/models/product_model.dart';
 
 class CartCounter extends StatefulWidget {
 
