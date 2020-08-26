@@ -25,6 +25,26 @@ class ProductsProvider {
     return null;
   }
 
+  Future<List<Product>> getAllProductsByCategoryID(String id) async {
+
+    final url = Uri.http(authority, 'api/categories/$id/products',{
+      'page': '1',
+      'rows': '10'
+    });
+    
+    try {
+      final resp = await http.get(url);
+      final decodedData = json.decode(resp.body);
+      final allProducts = new Products.fromJsonList(decodedData['data']);
+      print(decodedData['data']);
+      return allProducts.items;
+    } catch (err) {
+      print(err.toString());
+      print('error');
+    }
+    return null;
+  }
+
   Future<Product> getProductById(String id) async {
     
     final url = Uri.http(authority, 'api/products/$id');

@@ -20,7 +20,7 @@ class AllProductsPage extends StatelessWidget {
   Container _buildBody(Categoria categoria) {
     return Container(
       child: FutureBuilder(
-        future: productsProvider.getAllProducts(),
+        future: productsProvider.getAllProductsByCategoryID(categoria.id.toString(),),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
 
