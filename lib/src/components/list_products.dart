@@ -10,17 +10,27 @@ class MyCustomScrollView extends StatelessWidget {
 
   final List<Product> products;
   final Categoria categoria;
+  final Function nextPage;
 
-  const MyCustomScrollView({
-    Key key, this.products, this.categoria,
+  MyCustomScrollView({
+    Key key, @required this.products, @required this.categoria, @required this.nextPage,
   }) : super(key: key);
+
+  final ScrollController _scrollController = new ScrollController();
 
   @override
   Widget build(BuildContext context) {
 
     final _screenSize = MediaQuery.of(context).size;
 
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent - 200) {
+        nextPage();
+      }
+    });
+
     return CustomScrollView(
+      controller: _scrollController,
       slivers: [
         _mySliverAppBar(context, categoria),
         SliverList(

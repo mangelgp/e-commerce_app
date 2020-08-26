@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:oso_app/src/constants/constants.dart';
 import 'package:oso_app/src/models/categories_model.dart';
+import 'package:oso_app/src/providers/user_preferences.dart';
 
 class ListAllCategories extends StatelessWidget {
 
   final List<Categoria> categorias;
 
-  const ListAllCategories({@required this.categorias});
+  ListAllCategories({@required this.categorias});
+
+  final prefs = new UserPreferences();
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +43,7 @@ class ListAllCategories extends StatelessWidget {
       title: Text(categoria.descripcion, style: cardProductText,),
       trailing: Icon(Icons.keyboard_arrow_right, color: Theme.of(context).primaryColor,),
       onTap: () {
+        prefs.idCategoria = categoria.id;
         Navigator.pushNamed(context, 'products', arguments: categoria);
       },
     );
