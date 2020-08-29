@@ -17,7 +17,7 @@ class UserPreferences {
     this._preferences = await SharedPreferences.getInstance();
   }
 
-  // get & set del genero
+  // get & set del id Categoria
 
   get idCategoria {
     return _preferences.getInt('idCategoria') ?? 1;
@@ -26,34 +26,4 @@ class UserPreferences {
   set idCategoria(int value) {
     _preferences.setInt('idCategoria', value);
   }
-
-  // get & set del color secundario
-
-  // get colorSecundario {
-  //   return _preferences.getBool('colorSecundario') ?? false;
-  // }
-
-  // set colorSecundario(bool value) {
-  //   _preferences.setBool('colorSecundario', value);
-  // }
-
-  // get & set del nombre de usuario
-
-  // get userName {
-  //   return _preferences.getString('name') ?? 'Sin nombre';
-  // }
-
-  // set userName(String value) {
-  //   _preferences.setString('name', value);
-  // }
-
-  // get & set de la ultima pagina
-
-  // get lastPage {
-  //   return _preferences.getString('lastPage') ?? '/';
-  // }
-
-  // set lastPage(String value) {
-  //   _preferences.setString('lastPage', value);
-  // }
 }

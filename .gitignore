@@ -45,3 +45,4 @@ app.*.map.json
 lib/src/pages/z_old_all_products_list.dart
 lib/src/pages/z_beta_all_products_page.dart
 lib/src/components/z_old_my_cutom_scroll_view.dart
+.env

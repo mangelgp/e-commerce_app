@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:oso_app/src/models/product_model.dart';
@@ -8,7 +9,8 @@ import 'package:oso_app/src/providers/user_preferences.dart';
 
 class ProductsProvider {
 
-  static String authority = '192.168.0.2:8001';
+  static String authority = DotEnv().env['OSO_BASE_URL'];
+  static String apiKey = DotEnv().env['OSO_API_KEY'];
   final prefs = new UserPreferences();
 
   int _productPage = 0;
@@ -30,7 +32,8 @@ class ProductsProvider {
     _productPage++;
     print("page: $_productPage");
 
-    final url = Uri.http(authority, 'api/categories/${prefs.idCategoria}/products',{
+    final url = Uri.http(ProductsProvider.authority, 'api/categories/${prefs.idCategoria}/products',{
+      'api_key': ProductsProvider.apiKey,
       'page': _productPage.toString(),
       'rows': '20'
     });
@@ -58,7 +61,10 @@ class ProductsProvider {
 
   Future<List<Product>> getAllProducts() async {
 
-    final url = Uri.http(authority, 'api/products');
+    final url = Uri.http(ProductsProvider.authority, 'api/products', {
+      'api_key': ProductsProvider.apiKey,
+    });
+
     try {
       final resp = await http.get(url);
       final decodedData = json.decode(resp.body);
@@ -75,6 +81,7 @@ class ProductsProvider {
   Future<List<Product>> getAllProductsByCategoryID(String id) async {
 
     final url = Uri.http(authority, 'api/categories/$id/products',{
+      'api_key': ProductsProvider.apiKey,
       'page': '1',
       'rows': '20'
     });
@@ -94,7 +101,10 @@ class ProductsProvider {
 
   Future<Product> getProductById(String id) async {
     
-    final url = Uri.http(authority, 'api/products/$id');
+    final url = Uri.http(authority, 'api/products/$id', {
+      'api_key': ProductsProvider.apiKey
+    });
+
     try {
       final resp = await http.get(url);
       final decodedData = json.decode(resp.body);
